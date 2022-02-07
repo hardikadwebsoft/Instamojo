@@ -1,0 +1,64 @@
+﻿@model Nop.Plugin.Payments.Instamojo.Models.ConfigurationModel
+
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+@await Component.InvokeAsync("StoreScopeConfiguration")
+
+
+<form asp-controller="PaymentInstamojo" asp-action="Configure" method="post">
+    <div class="cards-group">
+        <div class="card card-default card-outline card-info" id="pnlOnboarding">
+            <div class="card-header">
+              <h5>Instructions</h5>
+            </div>
+            <div class="card-body">
+                <p>
+                    <b>
+                        If you're using this gateway ensure that your primary store currency is supported by
+                        Instamojo.
+                    </b> <br><br> To use Instamojo, you must create Instamojo account. Follow these steps to configure
+                    your account for Instamojo:<br> <br>1. Log in to your Instamojo account
+                    (click <a href="https://www.instamojo.com/payment-gateway/" target="_blank">here</a> to create your account).
+                    <br>2. Click on the API & Plugins button. <br>3. Select the<b> Private Auth Token</b> enter in Client Id <br>4. Select the
+                    <b> Private API Key</b> enter in Secret Key. <br>5. Click <b>Save</b> button on this page. <br>
+                </p>
+                <hr />
+             </div>
+        </div>
+        <div class="card card-default">
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="ClientId_OverrideForStore" asp-input="ClientId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        @*<nop-label asp-for="ClientId" />*@
+                        <label class="form-control">ClientId</label>
+                    </div>
+                    <div class="col-md-9">
+                        @*<nop-editor asp-for="clientid" />*@
+                        <input type="text" id="ClientId" name="ClientId" class="form-control text-box single-line" value="@Model.ClientId" />
+                        <span asp-validation-for="ClientId"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="SecretKey_OverrideForStore" asp-input="SecretKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        @*<nop-label asp-for="SecretKey" />*@
+                        <label class="form-control">SecretKey</label>
+                    </div>
+                    <div class="col-md-9">
+                        @*<nop-editor asp-for="SecretKey" />*@
+                        <input id="SecretKey" type="text" name="SecretKey" class="form-control text-box single-line" value="@Model.SecretKey" />
+                        <span asp-validation-for="SecretKey"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-9 offset-md-3">
+                        <button type="submit" name="save" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
